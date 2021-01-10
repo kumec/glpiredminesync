@@ -3,7 +3,7 @@
    <name>Sync to Redmine</name>
    <key>Sync to Redmine</key>
    <state>stable</state>
-   <logo>https://raw.githubusercontent.com/Unotechsoftware/project-sync-plugin/master/logo.png</logo>
+   <logo>https://raw.githubusercontent.com/kumec/glpiredminesync/master/logo.png</logo>
    <description>
       <short>
          <en>Feature to auto sync tickets to redmine.</en>
@@ -12,10 +12,10 @@
          <en>Feature to auto sync tickets to redmine.</en>
       </long>
    </description>
-   <homepage>https://github.com/Unotechsoftware/project-sync-plugin</homepage>
-   <download>https://github.com/Unotechsoftware/project-sync-plugin/releases</download>
-   <issues>https://github.com/Unotechsoftware/project-sync-plugin/issues</issues>
-   <readme>https://github.com/Unotechsoftware/project-sync-plugin/blob/master/README.md</readme>
+   <homepage>https://github.com/kumec/glpiredminesync</homepage>
+   <download>https://github.com/kumec/glpiredminesync</download>
+   <issues>https://github.com/kumec/glpiredminesync/issues</issues>
+   <readme>https://github.com/kumec/glpiredminesync/blob/master/README.md</readme>
    <authors>
       <author>iSalePro</author>
    </authors>
@@ -38,6 +38,6 @@
       </lang>
    </tags>
    <screenshots>
-      <screenshot>https://raw.githubusercontent.com/Unotechsoftware/project-sync-plugin/master/screenshot/redmine.png</screenshot>
+      <screenshot>https://raw.githubusercontent.com/kumec/glpiredminesync/master/screenshot/redmine.png</screenshot>
    </screenshots>
 </root>
