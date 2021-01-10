@@ -1,6 +1,7 @@
 <?php
 /**
  * Class PluginRedminesyncSync
+ * @author iSalePro Team
  */
 
 class PluginRedminesyncSync extends CommonGLPI
@@ -13,6 +14,7 @@ class PluginRedminesyncSync extends CommonGLPI
     {
         global $DB;
         $value = serialize(array(
+            'categoryId' => $data['itilcategories_id'],
             'url' => $data['url'],
             'key' => $data['key'],
             'hour' => $data['hour'],
@@ -126,9 +128,10 @@ class PluginRedminesyncSync extends CommonGLPI
     static function initConfig()
     {
         global $DB;
-        $result = $DB->query('SELECT * FROM glpi_configs WHERE context="isalepro" AND name="redmine_data"');
+        $result = $DB->query("SELECT * FROM glpi_configs WHERE context='isalepro' AND name='redmine_data'");
         if ($result->num_rows == 0) {
             self::$config = array(
+                'categoryId' => '',
                 'url' => '',
                 'key' => '',
                 'hour' => 24,
@@ -201,7 +204,7 @@ class PluginRedminesyncSync extends CommonGLPI
                 ['rm_status_id' => $statusDatum['rm_status_id']]
             );
         }
-
+        return true;
     }
 
     /**
@@ -247,6 +250,8 @@ class PluginRedminesyncSync extends CommonGLPI
                 ['rm_tracker_id' => $trackersDatum['rm_tracker_id']]
             );
         }
+
+        return true;
     }
 
     /**
@@ -291,6 +296,8 @@ class PluginRedminesyncSync extends CommonGLPI
                 ['rm_project_id' => $projectDatum['rm_project_id']]
             );
         }
+
+        return true;
     }
 
     /**
@@ -311,6 +318,9 @@ class PluginRedminesyncSync extends CommonGLPI
         }
 
         $lastDate = date("Y-m-d H:i:s", strtotime('-' . self::$config['hour'] . ' hours'));
+        $whereCategory = self::$config['categoryId']
+            ? ' AND t.itilcategories_id = ' . self::$config['categoryId'] .' '
+            : '';
         $result = $DB->request("
             SELECT 
                 t.*
@@ -319,6 +329,7 @@ class PluginRedminesyncSync extends CommonGLPI
                  LEFT JOIN glpi_plugin_redminesync_tickets rt ON rt.ticket_id = t.id
              WHERE 
                    t.date >= '" . $lastDate . "'
+                   ".$whereCategory."
                    AND rt.id IS NULL");
         $tickets = [];
         foreach ($result as $item) {
@@ -356,6 +367,7 @@ class PluginRedminesyncSync extends CommonGLPI
                 $DB->query($addHistorySql);
             }
         }
+        return true;
     }
 
     /**
@@ -406,5 +418,6 @@ class PluginRedminesyncSync extends CommonGLPI
                 $DB->query($updateStatusSql);
             }
         }
+        return  true;
     }
 }
